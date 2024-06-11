@@ -34,4 +34,4 @@ jobs:
         with:
           allowUpdates: true
           tag: "Latest"
-          artifacts: "MDK-ARM/out/Project/PY32F071xBProject/Project.hex"
+          artifacts: "MDK-ARM/out/Project/PY32F071xBProject/Project.hex, MDK-ARM/out/Project/PY32F071xBProject/Project.bin"
