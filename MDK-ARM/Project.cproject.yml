@@ -6,6 +6,7 @@ project:
     type:
     - hex
     - elf
+    - bin
   setups:
     - setup: Options for PY32F071xBProject
       add-path:
