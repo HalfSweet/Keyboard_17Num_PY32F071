@@ -82,8 +82,8 @@ project:
         - file: ../Src/main.cpp
         - file: ../Src/py32f071_hal_msp.c
         - file: ../Src/py32f071_it.c
-        - file: ../KeyBoard/hid_keyboard.c
-        - file: ../KeyBoard/KeyboardScan.cpp
+        - file: ../Keyboard/hid_keyboard.c
+        - file: ../Keyboard/KeyboardScan.cpp
     - group: Drivers/PY32F071_HAL_Driver
       files:
         - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal.c
