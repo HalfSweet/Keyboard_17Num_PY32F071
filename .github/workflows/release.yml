@@ -1,0 +1,37 @@
+name: release
+
+on:
+  push:
+
+  workflow_dispatch:
+
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Install CMSIS-Toolbox
+        run: |
+          . <(curl https://aka.ms/vcpkg-init.sh -L)
+          . ~/.vcpkg/vcpkg-init
+          vcpkg x-update-registry arm
+
+      - name: Compile
+        run: |
+          . ~/.vcpkg/vcpkg-init
+          cd MDK-ARM
+          vcpkg activate
+          armlm activate -product KEMDK-COM0 -server https://mdk-preview.keil.arm.com
+          cbuild Project.csolution.yml --context-set --update-rte --packs --context Project+PY32F071xBProject
+
+      
+      - name: release
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          tag: "Latest"
+          artifacts: "MDK-ARM/out/Project/PY32F071xBProject/Project.hex"
