@@ -1,0 +1,285 @@
+build:
+  generated-by: csolution version 2.4.0
+  solution: Project.csolution.yml
+  project: Project.cproject.yml
+  context: Project+PY32F071xBProject
+  compiler: AC6
+  device: PY32F071xB
+  device-pack: Puya::PY32F0xx_DFP@1.2.1
+  processor:
+    endian: little
+    fpu: off
+    core: Cortex-M0+
+  packs:
+    - pack: ARM::CMSIS@5.9.0
+      path: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0
+    - pack: Puya::PY32F0xx_DFP@1.2.1
+      path: ${CMSIS_PACK_ROOT}/Puya/PY32F0xx_DFP/1.2.1
+  optimize: size
+  debug: on
+  misc:
+    ASM:
+      - -masm=auto
+    C:
+      - -std=c99
+      - -fno-rtti
+      - -funsigned-char
+      - -fshort-enums
+      - -fshort-wchar
+      - -ffunction-sections
+      - -Wno-packed
+      - -Wno-missing-variable-declarations
+      - -Wno-missing-prototypes
+      - -Wno-missing-noreturn
+      - -Wno-sign-conversion
+      - -Wno-nonportable-include-path
+      - -Wno-reserved-id-macro
+      - -Wno-unused-macros
+      - -Wno-documentation-unknown-command
+      - -Wno-documentation
+      - -Wno-license-management
+      - -Wno-parentheses-equality
+    CPP:
+      - -xc++
+      - -std=c++2c
+      - -fno-rtti
+      - -funsigned-char
+      - -fshort-enums
+      - -fshort-wchar
+      - -ffunction-sections
+      - -Wno-packed
+      - -Wno-missing-variable-declarations
+      - -Wno-missing-prototypes
+      - -Wno-missing-noreturn
+      - -Wno-sign-conversion
+      - -Wno-nonportable-include-path
+      - -Wno-reserved-id-macro
+      - -Wno-unused-macros
+      - -Wno-documentation-unknown-command
+      - -Wno-documentation
+      - -Wno-license-management
+      - -Wno-parentheses-equality
+    Link:
+      - --map
+      - --load_addr_map_info
+      - --xref
+      - --callgraph
+      - --symbols
+      - --info sizes
+      - --info totals
+      - --info unused
+      - --info veneers
+      - --strict
+      - --summary_stderr
+      - --info summarysizes
+  define:
+    - USE_HAL_DRIVER
+    - PY32F071xB
+    - USE_FULL_LL_DRIVER
+    - _RTE_
+  define-asm:
+    - _RTE_
+  add-path:
+    - ../Inc
+    - ../Firmware/Drivers/CMSIS/Include
+    - ../Firmware/Drivers/CMSIS/Device/PY32F071/Include
+    - ../Firmware/Drivers/PY32F071_HAL_Driver/Inc
+    - ../CherryUSB/common
+    - ../CherryUSB/class/cdc
+    - ../CherryUSB/class/hid
+    - ../CherryUSB/core
+    - ../CherryUSB_Port
+    - ../Keyboard
+    - ../Ringbuffer
+    - ../WS2812
+    - RTE/_PY32F071xBProject
+    - ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+    - ${CMSIS_PACK_ROOT}/Puya/PY32F0xx_DFP/1.2.1/Drivers/CMSIS/Device/PY32F0xx/Include
+  output-dirs:
+    intdir: tmp/Project/PY32F071xBProject
+    outdir: out/Project/PY32F071xBProject
+    rtedir: RTE
+  output:
+    - type: elf
+      file: Project.axf
+    - type: hex
+      file: Project.hex
+  components:
+    - component: ARM::CMSIS:CORE@5.6.0
+      condition: ARMv6_7_8-M Device
+      from-pack: ARM::CMSIS@5.9.0
+      selected-by: ARM::CMSIS:CORE
+      files:
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+          category: include
+          version: 5.6.0
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/Core/Include/tz_context.h
+          category: header
+          version: 5.6.0
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/Core/Template/ARMv8-M/main_s.c
+          category: sourceC
+          attr: template
+          version: 1.1.1
+          select: Secure mode 'main' module for ARMv8-M
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/Core/Template/ARMv8-M/tz_context.c
+          category: sourceC
+          attr: template
+          version: 1.1.1
+          select: RTOS Context Management (TrustZone for ARMv8-M)
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/Documentation/Core/html/index.html
+          category: doc
+          version: 5.6.0
+  linker:
+    script: Project_PY32F071xBProject.sct
+  groups:
+    - group: Common
+      files:
+        - file: startup_py32f071xx.s
+          category: sourceAsm
+        - file: ../Src/system_py32f071.c
+          category: sourceC
+    - group: WS2812
+      files:
+        - file: ../WS2812/ws2812.cpp
+          category: sourceCpp
+    - group: Application/User
+      files:
+        - file: ../Src/main.cpp
+          category: sourceCpp
+        - file: ../Src/py32f071_hal_msp.c
+          category: sourceC
+        - file: ../Src/py32f071_it.c
+          category: sourceC
+        - file: ../Keyboard/hid_keyboard.c
+          category: sourceC
+        - file: ../Keyboard/KeyboardScan.cpp
+          category: sourceCpp
+    - group: Drivers/PY32F071_HAL_Driver
+      files:
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_adc.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_adc_ex.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_comp.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_cortex.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_crc.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_ctc.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_dac.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_dac_ex.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_div.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_dma.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_exti.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_flash.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_gpio.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_i2c.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_i2s.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_irda.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_iwdg.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_lcd.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_lptim.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_opa.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_opa_ex.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_pwr.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_rcc.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_rcc_ex.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_rtc.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_rtc_ex.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_smartcard.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_spi.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_tim.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_tim_ex.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_uart.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_usart.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_wwdg.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_adc.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_comp.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_crc.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_ctc.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_dac.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_dma.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_exti.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_gpio.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_i2c.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_lcd.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_lptim.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_pwr.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_rcc.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_rtc.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_spi.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_tim.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_usart.c
+          category: sourceC
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_utils.c
+          category: sourceC
+    - group: CherryUSB
+      optimize: debug
+      files:
+        - file: ../CherryUSB/core/usbd_core.c
+          category: sourceC
+        - file: ../CherryUSB/class/cdc/usbd_cdc.c
+          category: sourceC
+        - file: ../CherryUSB/class/hid/usbd_hid.c
+          category: sourceC
+        - file: ../CherryUSB_Port/usb_dc_py32.c
+          category: sourceC
+  constructed-files:
+    - file: RTE/_PY32F071xBProject/RTE_Components.h
+      category: header
+  licenses:
+    - license: <unknown>
+      packs:
+        - pack: ARM::CMSIS@5.9.0
+      components:
+        - component: ARM::CMSIS:CORE@5.6.0
+    - license: <unknown>
+      packs:
+        - pack: Puya::PY32F0xx_DFP@1.2.1

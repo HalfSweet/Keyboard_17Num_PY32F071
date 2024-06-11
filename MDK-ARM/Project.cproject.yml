@@ -1,0 +1,149 @@
+project:
+  packs:
+    - pack: Puya::PY32F0xx_DFP
+    - pack: ARM::CMSIS@5.9.0
+  output:
+    type:
+    - hex
+    - elf
+  setups:
+    - setup: Options for PY32F071xBProject
+      add-path:
+        - ../Inc
+        - ../Firmware/Drivers/CMSIS/Include
+        - ../Firmware/Drivers/CMSIS/Device/PY32F071/Include
+        - ../Firmware/Drivers/PY32F071_HAL_Driver/Inc
+        - ../CherryUSB/common
+        - ../CherryUSB/class/cdc
+        - ../CherryUSB/class/hid
+        - ../CherryUSB/core
+        - ../CherryUSB_Port
+        - ../Keyboard
+        - ../Ringbuffer
+        - ../WS2812
+      debug: "on"
+      define:
+        - USE_HAL_DRIVER
+        - PY32F071xB
+        - USE_FULL_LL_DRIVER
+      misc:
+        - C:
+            - -std=c99
+          C-CPP:
+            - -fno-rtti
+            - -funsigned-char
+            - -fshort-enums
+            - -fshort-wchar
+            - -ffunction-sections
+            - -Wno-packed
+            - -Wno-missing-variable-declarations
+            - -Wno-missing-prototypes
+            - -Wno-missing-noreturn
+            - -Wno-sign-conversion
+            - -Wno-nonportable-include-path
+            - -Wno-reserved-id-macro
+            - -Wno-unused-macros
+            - -Wno-documentation-unknown-command
+            - -Wno-documentation
+            - -Wno-license-management
+            - -Wno-parentheses-equality
+            # - -flto
+          CPP:
+            - -xc++
+            - -std=c++2c
+          ASM:
+            - -masm=auto
+          Link:
+            # - --lto
+            - --map
+            - --load_addr_map_info
+            - --xref
+            - --callgraph
+            - --symbols
+            - --info sizes
+            - --info totals
+            - --info unused
+            - --info veneers
+            - --strict
+            - --summary_stderr
+            - --info summarysizes
+  linker:
+    - script: Project_PY32F071xBProject.sct
+  groups:
+    - group: Common
+      files:
+        - file: startup_py32f071xx.s
+        - file: ../Src/system_py32f071.c
+    - group: WS2812
+      files:
+        - file: ../WS2812/ws2812.cpp
+    - group: Application/User
+      files:
+        - file: ../Src/main.cpp
+        - file: ../Src/py32f071_hal_msp.c
+        - file: ../Src/py32f071_it.c
+        - file: ../KeyBoard/hid_keyboard.c
+        - file: ../KeyBoard/KeyboardScan.cpp
+    - group: Drivers/PY32F071_HAL_Driver
+      files:
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_adc.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_adc_ex.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_comp.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_cortex.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_crc.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_ctc.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_dac.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_dac_ex.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_div.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_dma.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_exti.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_flash.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_gpio.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_i2c.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_i2s.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_irda.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_iwdg.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_lcd.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_lptim.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_opa.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_opa_ex.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_pwr.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_rcc.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_rcc_ex.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_rtc.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_rtc_ex.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_smartcard.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_spi.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_tim.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_tim_ex.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_uart.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_usart.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_hal_wwdg.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_adc.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_comp.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_crc.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_ctc.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_dac.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_dma.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_exti.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_gpio.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_i2c.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_lcd.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_lptim.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_pwr.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_rcc.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_rtc.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_spi.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_tim.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_usart.c
+        - file: ../Firmware/Drivers/PY32F071_HAL_Driver/Src/py32f071_ll_utils.c
+    - group: CherryUSB
+      optimize: debug
+      files:
+        - file: ../CherryUSB/core/usbd_core.c
+        - file: ../CherryUSB/class/cdc/usbd_cdc.c
+        - file: ../CherryUSB/class/hid/usbd_hid.c
+        - file: ../CherryUSB_Port/usb_dc_py32.c
+  components:
+    - component: ARM::CMSIS:CORE

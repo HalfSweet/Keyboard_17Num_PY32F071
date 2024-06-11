@@ -1,0 +1,11 @@
+solution:
+  created-by: uv2csolution@1.4.0
+  created-for: CMSIS-Toolbox@2.3.0
+  compiler: AC6
+  target-types:
+    - type: PY32F071xBProject
+      device: PY32F071xB
+      optimize: size
+      
+  projects:
+    - project: Project.cproject.yml

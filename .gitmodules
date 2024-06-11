@@ -1,0 +1,6 @@
+[submodule "Firmware"]
+	path = Firmware
+	url = https://github.com/OpenPuya/PY32F071_Firmware
+[submodule "CherryUSB"]
+	path = CherryUSB
+	url = https://github.com/cherry-embedded/CherryUSB

@@ -1,0 +1,15 @@
+# Format Style Options - Created with Clang Power Tools
+---
+AccessModifierOffset: -4
+AlignConsecutiveMacros: true
+AlignTrailingComments: true
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: false
+BasedOnStyle: Microsoft
+BreakBeforeBraces: Allman
+ColumnLimit: 0
+LineEnding: LF
+Standard: c++17
+
+IndentWidth: 4
+...

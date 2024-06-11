@@ -1,0 +1,8 @@
+cbuild-pack:
+  resolved-packs:
+    - resolved-pack: ARM::CMSIS@5.9.0
+      selected-by-pack:
+        - ARM::CMSIS@5.9.0
+    - resolved-pack: Puya::PY32F0xx_DFP@1.2.1
+      selected-by-pack:
+        - Puya::PY32F0xx_DFP
